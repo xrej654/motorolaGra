@@ -75,7 +75,9 @@ class Player {
 
     // Metoda która obraca pojazd
     turn() {
-        let turnSpeed = 2 - (this.speed / this.maxSpeed) * 1.2;
+        let turnSpeed;
+        if(this.lastDirection == "forward") turnSpeed = 2 - (this.speed / this.maxSpeed) * 1.2;
+        else if(this.lastDirection == "backwards") turnSpeed = -2 - (this.speed / this.maxSpeed) * 1.2;
         if (this.speed == 0) return;
         if (this.key.a) {
             if (this.lastDirection == "forward") {
