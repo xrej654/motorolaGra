@@ -7,7 +7,6 @@ class Player {
         this.angle = 0;
         this.speed = 0;
         this.maxSpeed = 3;
-        this.lastDirection = "forward"
         this.velocity = {
             x: 0,
             y: 0
@@ -35,23 +34,21 @@ class Player {
     // Metoda odpowiedzialna za zmianę prędkości pojazdu
     accelerate() {
         if (!this.key.w && !this.key.s) {
-            if (this.lastDirection == "forward") {
+            if (this.speed > 0) {
                 this.speed -= 0.01;
                 if (this.speed < 0) this.speed = 0;
             }
-            else if (this.lastDirection == "backwards") {
+            else if (this.speed < 0) {
                 this.speed += 0.01;
                 if (this.speed > 0) this.speed = 0;
             }
         }
         if (this.key.w && this.speed <= this.maxSpeed) {
             this.speed += 0.02;
-            this.lastDirection = "forward";
 
         }
         else if (this.key.s && this.speed >= -this.maxSpeed) {
             this.speed -= 0.02;
-            this.lastDirection = "backwards";
         }
         this.velocity.y = -(this.speed * Math.cos(convertToRadians(this.angle)));
         this.velocity.x = this.speed * Math.sin(convertToRadians(this.angle));
@@ -76,25 +73,25 @@ class Player {
     // Metoda która obraca pojazd
     turn() {
         let turnSpeed;
-        if(this.lastDirection == "forward") turnSpeed = 2 - (this.speed / this.maxSpeed) * 1.2;
-        else if(this.lastDirection == "backwards") turnSpeed = -2 - (this.speed / this.maxSpeed) * 1.2;
+        if(this.speed > 0) turnSpeed = 2 - (this.speed / this.maxSpeed) * 1.2;
+        else if(this.speed < 0) turnSpeed = -2 - (this.speed / this.maxSpeed) * 1.2;
         if (this.speed == 0) return;
         if (this.key.a) {
-            if (this.lastDirection == "forward") {
+            if (this.speed > 0) {
                 this.angle -= turnSpeed;
                 if (this.angle == 0) this.angle = 360;
             }
-            if (this.lastDirection == "backwards") {
+            if (this.speed < 0) {
                 this.angle += turnSpeed;
                 if (this.angle == 360) this.angle = 0;
             }
         }
         if (this.key.d) {
-            if (this.lastDirection == "forward") {
+            if (this.speed > 0) {
                 this.angle += turnSpeed;
                 if (this.angle == 360) this.angle = 0;
             }
-            if (this.lastDirection == "backwards") {
+            if (this.speed < 0) {
                 this.angle -= turnSpeed;
                 if (this.angle == 0) this.angle = 360;
             }
