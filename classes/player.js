@@ -15,7 +15,9 @@ class Player {
         }
         this.key = {
             a: false,
-            d: false
+            d: false,
+            w: false,
+            s: false
         }
     }
 
@@ -76,10 +78,7 @@ class Player {
 
     // Metoda która obraca pojazd
     turn() {
-        let turnSpeed;
-        if(this.speed > 0) turnSpeed = 2 - (this.speed / this.maxSpeed) * 1.2;
-        else if(this.speed < 0) turnSpeed = 2 + (this.speed / this.maxSpeed) * 1.2;
-        if (Math.abs(this.speed) <= 1) return;
+        let turnSpeed = this.changeTurningSpeed();
         if (this.key.a) {
             if (this.speed > 0) {
                 this.angle -= turnSpeed;
@@ -99,6 +98,18 @@ class Player {
                 this.angle -= turnSpeed;
                 if (this.angle == 0) this.angle = 360;
             }
+        }
+    }
+
+    // Metoda która zmienia szybkość obrotu w zależności od szybkości auta
+    changeTurningSpeed() {
+        if (this.speed > 0) {
+            if (this.speed <= 2) return this.speed / 1.5;
+            else return 2 - (this.speed / this.maxSpeed) * 1.2;
+        }
+        else if (this.speed < 0) {
+            if (this.speed >= -2) return -this.speed / 1.5;
+            else return 2 + (this.speed / this.maxSpeed) * 1.2;
         }
     }
 }
