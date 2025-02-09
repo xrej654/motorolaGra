@@ -76,7 +76,7 @@ class Player {
     turn() {
         let turnSpeed;
         if(this.speed > 0) turnSpeed = 2 - (this.speed / this.maxSpeed) * 1.2;
-        else if(this.speed < 0) turnSpeed = -2 - (this.speed / this.maxSpeed) * 1.2;
+        else if(this.speed < 0) turnSpeed = 2 + (this.speed / this.maxSpeed) * 1.2;
         if (Math.abs(this.speed) <= 1) return;
         if (this.key.a) {
             if (this.speed > 0) {
