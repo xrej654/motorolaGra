@@ -4,6 +4,7 @@ class Player {
         this.position = position;
         this.width = 20;
         this.height = 50;
+        //zmienna okreslajaca stopien obrotu pojazdu
         this.angle = 0;
         this.speed = 0;
         this.speedValue = 0.015;
