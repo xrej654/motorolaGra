@@ -6,8 +6,8 @@ class Player {
         this.height = 50;
         this.angle = 0;
         this.speed = 0;
-        this.speedValue = 0.01;
-        this.friction = 0.005;
+        this.speedValue = 0.015;
+        this.friction = 0.008;
         this.maxSpeed = 3;
         this.velocity = {
             x: 0,
@@ -46,11 +46,13 @@ class Player {
             }
         }
         if (this.key.w && this.speed <= this.maxSpeed) {
-            this.speed += this.speedValue;
+            if (this.speed < 0) this.speed += this.speedValue;
+            else this.speed += this.speedValue + this.friction;
 
         }
         else if (this.key.s && this.speed >= -this.maxSpeed) {
-            this.speed -= this.speedValue;
+            if (this.speed > 0) this.speed -= this.speedValue;
+            else this.speed -= (this.speedValue + this.friction);
         }
         this.velocity.y = -(this.speed * Math.cos(convertToRadians(this.angle)));
         this.velocity.x = this.speed * Math.sin(convertToRadians(this.angle));
